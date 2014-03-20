@@ -38,7 +38,7 @@ class ControlMainWindow(QtGui.QMainWindow):
     self.keithleyPort.baudrate = 9600
     self.keithleyPort.port = "COM2"
     self.keithleyPort.timeout = 0.1
-    #self.keithley = 0
+    self.keithley = Keithley()
     
     
     self.ui.keithleyPortOpenButton.clicked.connect(self.openKeithleyPort)
