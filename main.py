@@ -11,7 +11,7 @@ from Keithley_24XX import *
 
 class ControlMainWindow(QtGui.QMainWindow):
   def __del__(self):
-    self.keithley.port.close()   
+    self.keithleyPort.close()   
 
   def __init__(self, parent=None):
     super(ControlMainWindow, self).__init__(parent)
@@ -60,7 +60,7 @@ class ControlMainWindow(QtGui.QMainWindow):
   
   @pyqtSlot()
   def doSweep(self):
-    if (self.keithleyPort.isOpen()):
+    if (self.keithley.port.isOpen()):
       
       self.keithley.doLegacySweep(startV=self.ui.sweepStartVSpinEdit.value(), endV=self.ui.sweepEndSpinEdit.value(), numberOfPoints=self.ui.NumPointsSpinBox.value(), remoteSensing=self.ui.fourWireRadio.isChecked(), logSteps=self.ui.LogRadioButton.isChecked(), autorange=self.ui.autoRangeCheckBox.isChecked(), range=self.ui.currentRangeSpinBox.value(), limit=self.ui.currentLimitSpinBox.value(), pulseSweep=self.ui.pulseRadioButton.isChecked(), pulseWidth=self.ui.pulseWidthSpinEdit.value(), pulseDelay=self.ui.pulseDelaySpinEdit.value())
 
