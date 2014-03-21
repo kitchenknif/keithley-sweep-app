@@ -58,6 +58,7 @@ class ControlMainWindow(QtGui.QMainWindow):
   # Legacy Measurement slots
   #
   
+  
   @pyqtSlot()
   def doSweep(self):
     if (self.keithley.port.isOpen()):
