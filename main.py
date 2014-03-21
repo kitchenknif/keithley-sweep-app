@@ -1,6 +1,7 @@
 import sys
 import sip
 import serial
+import re
 
 from PyQt4.QtCore import pyqtSlot
 from PyQt4.QtGui import *
