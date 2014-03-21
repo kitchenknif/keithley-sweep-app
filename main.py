@@ -55,7 +55,7 @@ class ControlMainWindow(QtGui.QMainWindow):
     else:
       self.ui.stackedWidget.setCurrentIndex(1)
   #
-  # Measurement slots
+  # Legacy Measurement slots
   #
   
   @pyqtSlot()

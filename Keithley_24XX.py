@@ -190,6 +190,7 @@ class Keithley_24XX(Keithley):
     def getPulsePoint(self, voltage=1.0, repeats=2, vRange=1e-2, cRange=1e-3):
         if not self.PulseArmed:
             return False
+            
         
         if self.port.closed == True:
             return False
