@@ -1,7 +1,7 @@
 import sys
 import sip
 import serial
-import re
+import time
 
 from PyQt4.QtCore import pyqtSlot
 from PyQt4.QtGui import *
@@ -57,12 +57,56 @@ class ControlMainWindow(QtGui.QMainWindow):
   # Legacy Measurement slots
   #
   
-  
   @pyqtSlot()
   def doSweep(self):
     if (self.keithley.port.isOpen()):
+        #DC Sweep
+        if self.ui.dcRadioButton.isChecked():
+          if self.keithley.armDCMeasurements(remoteSensing=self.ui.fourWireRadio.isChecked(), autorange=self.ui.autoRangeCheckBox.isChecked(), range=self.ui.currentRangeSpinBox.value(), limit=self.ui.currentLimitSpinBox.value()):  
+            #DC Linear Sweep
+            if self.ui.LinearRadioButton.isChecked():
+              start = self.ui.sweepStartVSpinEdit.value()
+              num = self.ui.NumPointsSpinBox.value()
+              step =  (self.ui.sweepEndSpinEdit.value() - start)/(num - 1)
+              self.data = []
+            
+              for i in range(0, num):
+              
+                self.data.append(self.keithley.getPoint(voltage=(start + i*step), repeats=1))
+                print(str(i) + ": (" + str(self.data[i][0]) + ", " + str(self.data[i][1]) + ")")
+            #DC Log Sweep
+            else:
+              print("Not yet implemented....")
+          else:
+             QMessageBox.error(self, "Error", "Couldn't arm DC Measurement")
+        
+        #Pulse Sweep
+        else:
+          if self.keithley.armPulseMeasurements(remoteSensing=self.ui.fourWireRadio.isChecked(), range=self.ui.currentRangeSpinBox.value(), limit=self.ui.currentLimitSpinBox.value(), pulseWidth=self.ui.pulseWidthSpinEdit.value()/1000.0, pulseDelay=self.ui.pulseDelaySpinEdit.value()/1000.0):  
+            #Pulse Linear Sweep
+            if self.ui.LinearRadioButton.isChecked():
+              start = self.ui.sweepStartVSpinEdit.value()
+              num = self.ui.NumPointsSpinBox.value()
+              step =  (self.ui.sweepEndSpinEdit.value() - start)/(num - 1)
+              self.data = []
+            
+              for i in range(0, num):
+              
+                self.data.append(self.keithley.getPoint(voltage=(start + i*step), repeats=1))
+                print(str(i) + ": (" + str(self.data[i][0]) + ", " + str(self.data[i][1]) + ")")
+            #Pulse Log Sweep
+            else:
+              print("Not yet implemented....")
+          else:
+             QMessageBox.error(self, "Error", "Couldn't arm Pulse Measurement")           
+    
+  
+  
+  @pyqtSlot()
+  def doLegacySweep(self):
+    if (self.keithley.port.isOpen()):
       
-      self.keithley.doLegacySweep(startV=self.ui.sweepStartVSpinEdit.value(), endV=self.ui.sweepEndSpinEdit.value(), numberOfPoints=self.ui.NumPointsSpinBox.value(), remoteSensing=self.ui.fourWireRadio.isChecked(), logSteps=self.ui.LogRadioButton.isChecked(), autorange=self.ui.autoRangeCheckBox.isChecked(), range=self.ui.currentRangeSpinBox.value(), limit=self.ui.currentLimitSpinBox.value(), pulseSweep=self.ui.pulseRadioButton.isChecked(), pulseWidth=self.ui.pulseWidthSpinEdit.value(), pulseDelay=self.ui.pulseDelaySpinEdit.value())
+      self.keithley.doLegacySweep(startV=self.ui.sweepStartVSpinEdit.value(), endV=self.ui.sweepEndSpinEdit.value(), numberOfPoints=self.ui.NumPointsSpinBox.value(), remoteSensing=self.ui.fourWireRadio.isChecked(), logSteps=self.ui.LogRadioButton.isChecked(), autorange=self.ui.autoRangeCheckBox.isChecked(), range=self.ui.currentRangeSpinBox.value(), limit=self.ui.currentLimitSpinBox.value(), pulseSweep=self.ui.pulseRadioButton.isChecked(), pulseWidth=self.ui.pulseWidthSpinEdit.value()/1000.0, pulseDelay=self.ui.pulseDelaySpinEdit.value()/1000.0)
 
       QMessageBox.about(self, "Info", "Press Ok when measurement is complete")
       self.data = self.keithley.legacyReadDataPoints(self.ui.NumPointsSpinBox.value())

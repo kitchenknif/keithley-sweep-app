@@ -85,7 +85,7 @@
         <item row="1" column="0">
          <widget class="QLineEdit" name="keithleyPortEdit">
           <property name="text">
-           <string>COM2</string>
+           <string>COM3</string>
           </property>
          </widget>
         </item>
@@ -224,6 +224,9 @@
               <widget class="QRadioButton" name="LogRadioButton">
                <property name="text">
                 <string>Logarithmic Sweep</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
                </property>
                <property name="checked">
                 <bool>false</bool>
@@ -529,7 +532,7 @@
      <x>0</x>
      <y>0</y>
      <width>611</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -538,8 +541,8 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="sweepType"/>
   <buttongroup name="senseType"/>
+  <buttongroup name="sweepType"/>
   <buttongroup name="sweepShape"/>
  </buttongroups>
 </ui>

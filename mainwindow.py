@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Thu Mar 20 22:53:50 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Mon Mar 24 20:19:46 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -132,6 +132,7 @@ class Ui_MainWindow(object):
         self.sweepShape.addButton(self.LinearRadioButton)
         self.formLayout_2.setWidget(3, QtGui.QFormLayout.LabelRole, self.LinearRadioButton)
         self.LogRadioButton = QtGui.QRadioButton(self.frame_2)
+        self.LogRadioButton.setCheckable(False)
         self.LogRadioButton.setChecked(False)
         self.LogRadioButton.setObjectName(_fromUtf8("LogRadioButton"))
         self.sweepShape.addButton(self.LogRadioButton)
@@ -275,7 +276,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 611, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 611, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -294,7 +295,7 @@ class Ui_MainWindow(object):
         self.keithleyPortOpenButton.setText(_translate("MainWindow", "Open Port", None))
         self.keithleyPortCloseButton.setText(_translate("MainWindow", "Close Port", None))
         self.keithleyPortLabel.setText(_translate("MainWindow", "Port Closed", None))
-        self.keithleyPortEdit.setText(_translate("MainWindow", "COM2", None))
+        self.keithleyPortEdit.setText(_translate("MainWindow", "COM3", None))
         self.lddThemroPortOpenButton.setText(_translate("MainWindow", "Open Port", None))
         self.lddThemroPortCloseButton.setText(_translate("MainWindow", "Close Port", None))
         self.lddThermoLabel.setText(_translate("MainWindow", "Port Closed", None))
