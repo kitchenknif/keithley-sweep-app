@@ -132,7 +132,7 @@ class Keithley_24XX(Keithley):
         s += ":SENS:FUNC:CONC ON; "
         s += ":SENS:CURR:PROT " + str(limit) + "; "
         s += ":FORM:ELEM VOLT,CURR; "
-        s += ":SOUR:CLE:AUTO ON; "
+        s += ":SOUR:CLE:AUTO ON;\n"
 
         self.port.write(s.encode('ascii'))          
 
@@ -146,9 +146,9 @@ class Keithley_24XX(Keithley):
             return False
         s = "" 
     
-        s += ":TRIG:COUN " + str(repeats) + "; "
-        s += ":SOUR:VOLT " + str(voltage) + "; "
-        s += "READ?; "
+        s += ":TRIG:COUN " + str(repeats) + ";"
+        s += ":SOUR:VOLT " + str(voltage) + ";"
+        s += "READ?;\n"
 
         self.port.write(s.encode('ascii'))          
 
