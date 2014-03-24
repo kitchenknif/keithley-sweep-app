@@ -6,8 +6,7 @@ import re
 from PyQt4.QtCore import pyqtSlot
 from PyQt4.QtGui import *
 from mainwindow import *
-from Keithley_2635a import *
-from Keithley_24XX import *
+from Keithley import *
 
 class ControlMainWindow(QtGui.QMainWindow):
   def __del__(self):
