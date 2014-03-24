@@ -90,11 +90,13 @@ class ControlMainWindow(QtGui.QMainWindow):
     self.keithleyPort.close()
     print("Trying to open port... ", self.keithleyPort)
     self.keithleyPort.open()
+    string = ""
     if (self.keithleyPort.isOpen()):
       self.keithleyPort.write(b"*IDN?\n")
-      str = self.keithleyPort.read(128)
-      self.ui.keithleyPortLabel.setText(str.decode("windows-1252"))
-      print(str.decode("windows-1252"))
+      string = self.keithleyPort.read(128)
+      string = str(string, "windows-1252")
+      self.ui.keithleyPortLabel.setText(string)
+      print(string)
     else:
       print("Failed to do something")
       self.ui.keithleyPortLabel.setText("Failed to read ID string")
@@ -107,7 +109,7 @@ class ControlMainWindow(QtGui.QMainWindow):
       
       #Create Keithley class
       self.keithleyPort.close()
-      self.keithley = Keithley.factory(port, str)
+      self.keithley = Keithley.factory(string, self.keithleyPort)
       self.keithley.port.open()
     
   @pyqtSlot()
@@ -123,4 +125,5 @@ class ControlMainWindow(QtGui.QMainWindow):
 app = QtGui.QApplication(sys.argv)
 mySW = ControlMainWindow()
 mySW.show()
+app.exec_()
 #sys.exit(app.exec_())
