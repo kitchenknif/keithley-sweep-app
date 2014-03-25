@@ -21,7 +21,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -129,8 +129,233 @@
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_2"/>
         </item>
+        <item row="1" column="1">
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>General Sweep Characteristics</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Sweep Start, V</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QDoubleSpinBox" name="sweepStartVSpinEdit">
+               <property name="decimals">
+                <number>6</number>
+               </property>
+               <property name="maximum">
+                <double>9999.989999999999782</double>
+               </property>
+               <property name="value">
+                <double>0.000010000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Sweep End, V</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QDoubleSpinBox" name="sweepEndSpinEdit">
+               <property name="decimals">
+                <number>6</number>
+               </property>
+               <property name="maximum">
+                <double>9999.989999999999782</double>
+               </property>
+               <property name="value">
+                <double>3.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Number of Points</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="NumPointsSpinBox">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="value">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QRadioButton" name="LinearRadioButton">
+               <property name="text">
+                <string>Linear Sweep</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">sweepShape</string>
+               </attribute>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QRadioButton" name="LogRadioButton">
+               <property name="text">
+                <string>Logarithmic Sweep</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">sweepShape</string>
+               </attribute>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Sweep type-specific Characteristics</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QRadioButton" name="dcRadioButton">
+               <property name="text">
+                <string>DC Sweep</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">sweepType</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="pulseRadioButton">
+               <property name="text">
+                <string>Pulse Sweep</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">sweepType</string>
+               </attribute>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QStackedWidget" name="stackedWidget">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <widget class="QWidget" name="dcPage">
+              <layout class="QFormLayout" name="formLayout_3">
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="autoRangeCheckBox">
+                 <property name="text">
+                  <string>Auto range</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>DC Sweep</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="pulsePage">
+              <layout class="QFormLayout" name="formLayout_4">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Pulse Sweep</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>Pulse Width, ms</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Pusle Delay, ms</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QDoubleSpinBox" name="pulseWidthSpinEdit">
+                 <property name="maximum">
+                  <double>5.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>5.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QDoubleSpinBox" name="pulseDelaySpinEdit">
+                 <property name="maximum">
+                  <double>999.990000000000009</double>
+                 </property>
+                 <property name="value">
+                  <double>200.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,1,0">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,1">
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -158,13 +383,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="clearDataButton">
-            <property name="text">
-             <string>Clear</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item row="1" column="0">
@@ -177,413 +395,121 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QGroupBox" name="groupBox_2">
-             <property name="title">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
               <string>Limits and Ranges</string>
              </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QFormLayout" name="formLayout_7">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Current</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Range, A</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Limit, A</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="currentLimitSpinBox">
-                <property name="decimals">
-                 <number>6</number>
-                </property>
-                <property name="maximum">
-                 <double>9999.989999999999782</double>
-                </property>
-                <property name="value">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QDoubleSpinBox" name="currentRangeSpinBox">
-                <property name="decimals">
-                 <number>6</number>
-                </property>
-                <property name="maximum">
-                 <double>9999.989999999999782</double>
-                </property>
-                <property name="value">
-                 <double>0.010000000000000</double>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_3">
-             <property name="title">
+            <layout class="QFormLayout" name="formLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Limit, A</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QDoubleSpinBox" name="currentLimitSpinBox">
+               <property name="decimals">
+                <number>6</number>
+               </property>
+               <property name="maximum">
+                <double>9999.989999999999782</double>
+               </property>
+               <property name="value">
+                <double>1.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Range, A</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QDoubleSpinBox" name="currentRangeSpinBox">
+               <property name="decimals">
+                <number>6</number>
+               </property>
+               <property name="maximum">
+                <double>9999.989999999999782</double>
+               </property>
+               <property name="value">
+                <double>0.010000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
               <string>Measurement Configuration</string>
              </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QFormLayout" name="formLayout">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_17">
-                <property name="text">
-                 <string>Sense Type</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QRadioButton" name="twoWireRadio">
-                <property name="text">
-                 <string>2 Wire</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">senseType</string>
-                </attribute>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QRadioButton" name="fourWireRadio">
-                <property name="text">
-                 <string>4 Wire</string>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">senseType</string>
-                </attribute>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_18">
-                <property name="text">
-                 <string>Averaging</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_19">
-                <property name="text">
-                 <string>Samples</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QSpinBox" name="numberOfSamplesSpinBox">
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="value">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_4">
-             <property name="title">
-              <string>Other</string>
+            <layout class="QFormLayout" name="formLayout_5">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>Sense Type</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QRadioButton" name="twoWireRadio">
+               <property name="text">
+                <string>2 Wire</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">senseType</string>
+               </attribute>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QRadioButton" name="fourWireRadio">
+               <property name="text">
+                <string>4 Wire</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">senseType</string>
+               </attribute>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="flat">
-              <bool>true</bool>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
              </property>
-             <layout class="QFormLayout" name="formLayout_5">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_21">
-                <property name="text">
-                 <string>Delay Between Points, sec</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="delayBetweenPointsCheckbox">
-                <property name="minimum">
-                 <double>0.100000000000000</double>
-                </property>
-                <property name="value">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QCheckBox" name="legacySweepCheckbox">
-                <property name="text">
-                 <string>Legacy Sweep</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
+            </spacer>
            </item>
           </layout>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>General Sweep Characteristics</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QFormLayout" name="formLayout_6">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Sweep Start, V</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="sweepStartVSpinEdit">
-                <property name="decimals">
-                 <number>6</number>
-                </property>
-                <property name="maximum">
-                 <double>9999.989999999999782</double>
-                </property>
-                <property name="value">
-                 <double>0.000010000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Sweep End, V</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="sweepEndSpinEdit">
-                <property name="decimals">
-                 <number>6</number>
-                </property>
-                <property name="maximum">
-                 <double>9999.989999999999782</double>
-                </property>
-                <property name="value">
-                 <double>3.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Number of Points</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QSpinBox" name="NumPointsSpinBox">
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>1000</number>
-                </property>
-                <property name="value">
-                 <number>100</number>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QRadioButton" name="LinearRadioButton">
-                <property name="text">
-                 <string>Linear Sweep</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">sweepShape</string>
-                </attribute>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QRadioButton" name="LogRadioButton">
-                <property name="text">
-                 <string>Logarithmic Sweep</string>
-                </property>
-                <property name="checkable">
-                 <bool>false</bool>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">sweepShape</string>
-                </attribute>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_5">
-             <property name="title">
-              <string>Sweep type-specific Characteristics</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QFormLayout" name="formLayout_2">
-              <item row="0" column="0">
-               <widget class="QRadioButton" name="dcRadioButton">
-                <property name="text">
-                 <string>DC Sweep</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">sweepType</string>
-                </attribute>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="pulseRadioButton">
-                <property name="text">
-                 <string>Pulse Sweep</string>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">sweepType</string>
-                </attribute>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_6">
-             <property name="title">
-              <string/>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QStackedWidget" name="stackedWidget">
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="dcPage">
-                 <layout class="QFormLayout" name="formLayout_3">
-                  <item row="1" column="0">
-                   <widget class="QCheckBox" name="autoRangeCheckBox">
-                    <property name="text">
-                     <string>Auto range</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_12">
-                    <property name="text">
-                     <string>DC Sweep</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="pulsePage">
-                 <layout class="QFormLayout" name="formLayout_4">
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_13">
-                    <property name="text">
-                     <string>Pulse Sweep</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_14">
-                    <property name="text">
-                     <string>Pulse Width, ms</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_15">
-                    <property name="text">
-                     <string>Pusle Delay, ms</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QDoubleSpinBox" name="pulseWidthSpinEdit">
-                    <property name="maximum">
-                     <double>5.000000000000000</double>
-                    </property>
-                    <property name="value">
-                     <double>5.000000000000000</double>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QDoubleSpinBox" name="pulseDelaySpinEdit">
-                    <property name="maximum">
-                     <double>999.990000000000009</double>
-                    </property>
-                    <property name="value">
-                     <double>200.000000000000000</double>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QProgressBar" name="progressBar">
-          <property name="value">
-           <number>0</number>
-          </property>
          </widget>
         </item>
        </layout>
@@ -615,8 +541,8 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="senseType"/>
   <buttongroup name="sweepType"/>
   <buttongroup name="sweepShape"/>
-  <buttongroup name="senseType"/>
  </buttongroups>
 </ui>
