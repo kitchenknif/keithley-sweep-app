@@ -100,7 +100,7 @@ class ControlMainWindow(QtGui.QMainWindow):
                         QMessageBox.about(self, "Info", "Measurement complete!")
                     #Log Sweep
                     else:
-                        print("Not yet implemented....")
+                        QMessageBox.about(self, "Info", "Log sweep not yet implemented!")
         self.ui.progressBar.setRange(0,1)
                          
 
