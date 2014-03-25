@@ -141,7 +141,6 @@ class Keithley_24XX(Keithley):
 
         self.DCArmed = True
         print("DC Armed")
-        self.port.flushInput()
         time.sleep(2)
         return True
                
@@ -183,7 +182,6 @@ class Keithley_24XX(Keithley):
 
         self.PulseArmed = True
         print("Pulse Armed")        
-        self.port.flushInput()
         time.sleep(2)
         return True   
         
