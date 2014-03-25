@@ -61,7 +61,7 @@ class ControlMainWindow(QtGui.QMainWindow):
     def doSweep(self):
         #We're ready to sweep
         if (self.keithley.port.isOpen()):
-            self.ui.progressBar.setValue(0)
+            self.ui.progressBar.setRange(0,0)
             
             #Legacy just in case
             if self.ui.legacySweepCheckbox.isChecked():
@@ -92,15 +92,16 @@ class ControlMainWindow(QtGui.QMainWindow):
                         self.data = []
                         
                         for i in range(0, num):
-                            self.ui.progressBar.setValue(i/num)
-                            self.processEvents()
+                            #self.ui.progressBar.setValue(i/num)
+                            app.processEvents()
                         
-                            self.data.append(self.keithley.getPoint(voltage=(start + i*step), repeats=1))
+                            self.data.append(self.keithley.getPoint(voltage=(start + i*step), repeats=self.ui.numberOfSamplesSpinBox.value()))
                             print(str(i) + ": (" + str(self.data[i][0]) + ", " + str(self.data[i][1]) + ")")
-                        QMessageBox.error(self, "Info", "Measurement complete!")
+                        QMessageBox.about(self, "Info", "Measurement complete!")
                     #Log Sweep
                     else:
                         print("Not yet implemented....")
+        self.ui.progressBar.setRange(0,1)
                          
 
     @pyqtSlot()
@@ -158,7 +159,8 @@ class ControlMainWindow(QtGui.QMainWindow):
             #Create Keithley class
             self.keithleyPort.close()
             self.keithley = Keithley.factory(string, self.keithleyPort)
-            self.keithley.port.open()
+            if not self.keithley.port.isOpen():
+                self.keithley.port.open()
         
     @pyqtSlot()
     def closeKeithleyPort(self):

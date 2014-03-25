@@ -1,5 +1,6 @@
 import serial
 import time
+import os
 
 class Keithley:
     'Keithley Generic SourceMeter Class'
@@ -167,17 +168,17 @@ class Keithley_24XX(Keithley):
         s = ":SOUR:PULS:DELAY " + str(pulseDelay) + ";\n" 
         self.port.write(s.encode('ascii'))          
         self.port.write(b":SOUR:FUNC VOLT; \n")          
-        #self.port.write(b":SOUR:VOLT:RANG:AUTO ON; \n")
+        self.port.write(b":SOUR:VOLT:RANG:AUTO ON; \n")
         self.port.write(b":SOUR:VOLT:MODE FIXED; \n")
         self.port.write(b":SENS:FUNC \"CURR\"; \n")
-        #self.port.write(b":SENS:FUNC:CONC ON;\n")
+        self.port.write(b":SENS:FUNC:CONC ON;\n")
         self.port.write(b":SENS:CURR:NPLC 0.1; \n")
         s = ":SENS:CURR:PROT " + str(limit) + "; \n"
         self.port.write(s.encode('ascii'))
         s = ":SENS:CURR:RANG " + str(range) + "; \n"
         self.port.write(s.encode('ascii'))
         self.port.write(b":FORM:ELEM VOLT,CURR; \n")
-        #self.port.write(b":SYST:AZER ON;\n")
+        self.port.write(b":SYST:AZER ON;\n")
         
 
         self.PulseArmed = True
@@ -197,13 +198,29 @@ class Keithley_24XX(Keithley):
         self.port.write(s.encode('ascii'))          
         s = ":SOUR:VOLT:LEV " + str(voltage) + "; \n"
         self.port.write(s.encode('ascii'))          
-        s = ":READ?; \n"
-        self.port.write(s.encode('ascii'))          
-
-        dataPoint = [0.0, 0.0]
-        p = self.port.readline()
+        s = ":INIT; \n"
+        self.port.write(s.encode('ascii'))
+        s = "*OPC?; \n"
+        self.port.write(s.encode('ascii'))        
         
-        t = p.split(b",")
+        while not b'1' in self.port.readline():
+            time.sleep(0)
+            
+        s = ":FETCH?; \n"
+        self.port.write(s.encode('ascii'))
+
+        #time.sleep(1)
+        
+        dataPoint = [0.0, 0.0]
+        t = []
+        
+        #not exactly pretty
+        p = b""
+        while (len(t) < repeats*2):
+            p += self.port.readline()
+            print(p.decode("ascii"))
+            t = p.split(b",")
+        #time.sleep(5)    
         for i in range(0, len(t), 2):    
             try:
                 dataPoint[0] += float(t[i])
