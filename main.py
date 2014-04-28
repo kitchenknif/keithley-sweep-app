@@ -2,6 +2,7 @@ import sys
 import sip
 import serial
 import time
+import os.path
 
 from PyQt4.QtCore import pyqtSlot
 from PyQt4.QtGui import *
@@ -43,6 +44,11 @@ class ControlMainWindow(QtGui.QMainWindow):
         
         self.ui.keithleyPortOpenButton.clicked.connect(self.openKeithleyPort)
         self.ui.keithleyPortCloseButton.clicked.connect(self.closeKeithleyPort)
+        
+        #
+        # Config
+        #
+        self.saveFolder = os.getcwd()
 
     #
     # Config Slots
@@ -54,7 +60,7 @@ class ControlMainWindow(QtGui.QMainWindow):
         else:
             self.ui.stackedWidget.setCurrentIndex(1)
     #
-    # Legacy Measurement slots
+    # Measurement slots
     #
     
     @pyqtSlot()
@@ -103,7 +109,9 @@ class ControlMainWindow(QtGui.QMainWindow):
                         QMessageBox.about(self, "Info", "Log sweep not yet implemented!")
         self.ui.progressBar.setRange(0,1)
                          
-
+    #
+    # Legacy Measurement slots
+    #
     @pyqtSlot()
     def doLegacySweep(self):
         if (self.keithley.port.isOpen()):
@@ -119,8 +127,9 @@ class ControlMainWindow(QtGui.QMainWindow):
 
     @pyqtSlot()
     def saveSweep(self):
-        fname = QtGui.QFileDialog.getSaveFileName(self, caption="Save file", directory=os.getcwd(), filter="Text Files (*.txt *.dat *.csv)")
+        fname = QtGui.QFileDialog.getSaveFileName(self, caption="Save file", directory=self.saveFolder, filter="Text Files (*.txt *.dat *.csv)")
         f = open(fname, 'w')
+        self.saveFolder = os.path.dirname(fname)
         for point in self.data:
             f.write(str(point[0]) + ", " + str(point[1]) + "\n")
         f.close()
