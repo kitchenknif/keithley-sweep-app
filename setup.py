@@ -32,5 +32,5 @@ setup(name='simple_PyQt4',
       version='0.1',
       description='Sample cx_Freeze PyQt4 script',
       options=options,
-      executables=executables, requires=['sip', 'PyQt4', 'PyQt4', 'PyQt4', 'cx_Freeze']
+      executables=executables
       )
