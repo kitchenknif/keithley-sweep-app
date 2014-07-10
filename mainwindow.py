@@ -17,13 +17,11 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
-
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -371,8 +369,6 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "Pulse Sweep", None))
         self.label_14.setText(_translate("MainWindow", "Pulse Width, ms", None))
         self.label_15.setText(_translate("MainWindow", "Pusle Delay, ms", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.measureTab),
-                                  _translate("MainWindow", "Measurements", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.thermalTab),
-                                  _translate("MainWindow", "Thermal Control", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.measureTab), _translate("MainWindow", "Measurements", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.thermalTab), _translate("MainWindow", "Thermal Control", None))
 
