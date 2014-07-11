@@ -2,14 +2,18 @@ import serial
 import time
 import os
 
+
 class Keithley:
-    'Keithley Generic SourceMeter Class'
+    """Keithley Generic SourceMeter Class"""
         
     @staticmethod
     def factory(type, port):
-        if "2430" in type: return Keithley_24XX(port, True)
-        if "2400" in type: return Keithley_24XX(port, False)
-        if "2635a" in type: return Keithley_2635a(port, True)
+        if "2430" in type:
+            return Keithley_24XX(port, True)
+        if "2400" in type:
+            return Keithley_24XX(port, False)
+        if "2635a" in type:
+            return Keithley_2635a(port, True)
         assert 0, "Bad identification string: " + type
 
 #
@@ -18,7 +22,7 @@ class Keithley:
         
         
 class Keithley_24XX(Keithley):
-    'Keithley 24XX I-V Measurement Class'
+    """Keithley 24XX I-V Measurement Class"""
 
     def __init__(self, port, supportPulse):
         self.port = port
@@ -30,13 +34,10 @@ class Keithley_24XX(Keithley):
     def __del__(self):
         self.port.close()
 
-    
-    #
     # Factory Sweep Thing
-    #
-    
-    def doLegacySweep(self, startV=0.0, endV=3.0, numberOfPoints=100, remoteSensing=True, logSteps=False, autorange=True, range=1e-3, limit=1.0, pulseSweep=False, pulseWidth=1e-3, pulseDelay=1e0):
-        if self.port.closed == True:
+    def doLegacySweep(self, startV=0.0, endV=3.0, numberOfPoints=100, remoteSensing=True, logSteps=False,
+                      autorange=True, range=1e-3, limit=1.0, pulseSweep=False, pulseWidth=1e-3, pulseDelay=1e0):
+        if self.port.closed:
             return False
         if not self.supportPulse and pulseSweep:
             return False
@@ -50,7 +51,7 @@ class Keithley_24XX(Keithley):
         if autorange and not pulseSweep:
             self.port.write(b":SOUR:SWE:RANG AUTO;\n")
         else:
-            s =  ":SENS:CURR:RANGE " + str(range) + ";\n"
+            s = ":SENS:CURR:RANGE " + str(range) + ";\n"
             self.port.write(s.encode('ascii'))
         
         if remoteSensing:
@@ -64,7 +65,7 @@ class Keithley_24XX(Keithley):
             s += ":SENS:CURR:NPLC 10; :TRIG:COUN " + str(numberOfPoints) + "; "
             s += ":SOUR:FUNC VOLT; :SENS:FUNC \"CURR\"; :SENS:FUNC:CONC ON; :SENS:CURR:PROT " + str(limit) + "; "
             s += ":SOUR:VOLT:START " + str(startV) + "; :SOUR:VOLT:STOP " + str(endV) + "; "
-            s += ":SOUR:VOLT:STEP " + str( (endV - startV)/(numberOfPoints-1.0)) + "; :SOUR:VOLT:MODE SWE; "
+            s += ":SOUR:VOLT:STEP " + str((endV - startV)/(numberOfPoints-1.0)) + "; :SOUR:VOLT:MODE SWE; "
             s += ":FORM:ELEM VOLT,CURR; "
             if logSteps:
                 s += ":SOUR:SWE:SPAC LOG; "
@@ -77,7 +78,7 @@ class Keithley_24XX(Keithley):
             s += ":SENS:CURR:NPLC 0.1; :TRIG:COUN " + str(numberOfPoints) + "; "
             s += ":SOUR:FUNC VOLT; :SENS:FUNC \"CURR\"; :SENS:FUNC:CONC ON; :SENS:CURR:PROT " + str(limit) + "; "
             s += ":SOUR:VOLT:START " + str(startV) + "; :SOUR:VOLT:STOP " + str(endV) + "; "
-            s += ":SOUR:VOLT:STEP " + str( (endV - startV)/(numberOfPoints-1.0)) + "; :SOUR:VOLT:MODE SWE; "
+            s += ":SOUR:VOLT:STEP " + str((endV - startV)/(numberOfPoints-1.0)) + "; :SOUR:VOLT:MODE SWE; "
             s += ":FORM:ELEM VOLT,CURR; "
             if logSteps:
                 s += ":SOUR:SWE:SPAC LOG; "
@@ -89,7 +90,7 @@ class Keithley_24XX(Keithley):
 
         return True
     
-    def legacyReadDataPoints(self,numberOfPoints):
+    def legacyReadDataPoints(self, numberOfPoints):
         dataPoints = []
         self.port.write(b":OUTP OFF;\n")
         p = self.port.readline()
@@ -107,7 +108,7 @@ class Keithley_24XX(Keithley):
     #
     
     def armDCMeasurements(self, remoteSensing=True, autorange=True, range=1e-3, limit=1.0):
-        if self.port.closed == True:
+        if self.port.closed:
             return False
 
         self.port.write(b"*RST;\n")
@@ -126,30 +127,26 @@ class Keithley_24XX(Keithley):
         self.port.write(b":SOUR:CLE:AUTO ON;\n")  
         self.port.write(b":SOUR:VOLT:RANGE:AUTO ON;\n")
 
-    
         if autorange:
             self.port.write(b":SENS:CURR:RANGE:AUTO ON;\n")
         else:
-            s =  ":SENS:CURR:RANGE " + str(range) + ";\n"
+            s = ":SENS:CURR:RANGE " + str(range) + ";\n"
             self.port.write(s.encode('ascii'))
         
         if remoteSensing:
             self.port.write(b":SYST:RSEN ON;\n")
         else:
             self.port.write(b":SYST:RSEN OFF;\n")      
-        
 
         self.DCArmed = True
         print("DC Armed")
         self.port.flushInput()
         time.sleep(2)
         return True
-               
-    #
+
     # Realtime Pulse Sweep
-    #
     def armPulseMeasurements(self, remoteSensing=True, range=1e-3, limit=1.0, pulseWidth=1e-3, pulseDelay=1e0):
-        if self.port.closed == True:
+        if self.port.closed:
             return False
 
         self.port.write(b"*RST;\n")
@@ -179,7 +176,6 @@ class Keithley_24XX(Keithley):
         self.port.write(s.encode('ascii'))
         self.port.write(b":FORM:ELEM VOLT,CURR; \n")
         self.port.write(b":SYST:AZER ON;\n")
-        
 
         self.PulseArmed = True
         print("Pulse Armed")        
@@ -191,7 +187,7 @@ class Keithley_24XX(Keithley):
         if not self.DCArmed and not self.PulseArmed:
             return False
          
-        if self.port.closed == True:
+        if self.port.closed:
             return False
    
         s = ":TRIG:COUN " + str(repeats) + "; \n"
@@ -216,7 +212,7 @@ class Keithley_24XX(Keithley):
         
         #not exactly pretty
         p = b""
-        while (len(t) < repeats*2):
+        while len(t) < repeats*2:
             p += self.port.readline()
             print(p.decode("ascii"))
             t = p.split(b",")
@@ -232,14 +228,10 @@ class Keithley_24XX(Keithley):
         time.sleep(1)        
         return dataPoint
 
-  
 
-#
 # Keithley 2635a
-#        
-
 class Keithley_2635a(Keithley):
-    'Keithley 2635a I-V Measurement Class'
+    """Keithley 2635a I-V Measurement Class"""
 
     def __init__(self, port, supportPulse):
         self.port = port
@@ -249,8 +241,9 @@ class Keithley_2635a(Keithley):
     def __del__(self):
         self.port.close()
 
-    def doLegacySweep(self, startV=0.0, endV=3.0, numberOfPoints=100, remoteSensing=True, logSteps=False, autorange=True, range=1e-3, limit=1.0, pulseSweep=False, pulseWidth=1e-3, pulseDelay=1e0):
-        if self.port.closed == True:
+    def doLegacySweep(self, startV=0.0, endV=3.0, numberOfPoints=100, remoteSensing=True, logSteps=False,
+                      autorange=True, range=1e-3, limit=1.0, pulseSweep=False, pulseWidth=1e-3, pulseDelay=1e0):
+        if self.port.closed:
             return False
         if not self.supportPulse and pulseSweep:
             return False
@@ -264,9 +257,11 @@ class Keithley_2635a(Keithley):
             self.port.write(b"smua.source.autorangei = smua.AUTORANGE_ON; smua.source.lowrangei = 10e-9;\n")
             self.port.write(b"smua.source.autorangev = smua.AUTORANGE_ON; smua.source.lowrangev = 10e-9;\n")
         else:
-            s =  "smua.measure.autorangev = smua.AUTORANGE_OFF;smua.measure.autorangei = smua.AUTORANGE_OFF; smua.measure.rangei = " + str(range) + ";\n"
-            s += "smua.source.autorangei = smua.AUTORANGE_OFF;smua.source.autorangev = smua.AUTORANGE_OFF; smua.source.rangev = " + str(range) + ";\n"
-            s += "smua.measure.autozero = smua.AUTOZERO_ONCE; \n";
+            s = "smua.measure.autorangev = smua.AUTORANGE_OFF;smua.measure.autorangei = smua.AUTORANGE_OFF; "
+            s += "smua.measure.rangei = " + str(range) + ";\n"
+            s += "smua.source.autorangei = smua.AUTORANGE_OFF;smua.source.autorangev = smua.AUTORANGE_OFF; "
+            s += "smua.source.rangev = " + str(range) + ";\n"
+            s += "smua.measure.autozero = smua.AUTOZERO_ONCE; \n"
             self.port.write(s.encode('ascii'))
         
         if remoteSensing:
@@ -290,10 +285,11 @@ class Keithley_2635a(Keithley):
                 s += "f, msg = ConfigPulseVMeasureISweepLog"
             else:
                 s += "f, msg = ConfigPulseVMeasureISweepLin"
-            s += "(smua,0," + str(startV) + ', ' + str(stopV) + ', ' + str(limit) + ', ', + str(pulseWidth) + ', ' + str(pulseDelay) + ', ' + str(numPoints) + "smua.nvbuffer1, 1)"
+            s += "(smua,0," + str(startV) + ', ' + str(stopV) + ', ' + str(limit) + ', ', + str(pulseWidth) + ', ' \
+                 + str(pulseDelay) + ', ' + str(numPoints) + "smua.nvbuffer1, 1)"
             s += "smua.nvbuffer1.appendmode=1; \n"
             s += "f1, msg1 = InitiatePulseTest(1);" 
-            s += "smua.source.output = smua.OUTPUT_OFF\n";
+            s += "smua.source.output = smua.OUTPUT_OFF\n"
 
         self.port.write(s.encode('ascii'))
         self.port.write(b"smua.source.output = smua.OUTPUT_OFF; \n")           
@@ -303,7 +299,7 @@ class Keithley_2635a(Keithley):
     def legacyReadDataPoints(self, numberOfPoints):
         self.port.flushInput()
         dataPoints = []
-        for i in range (1, numberOfPoints+1):
+        for i in range(1, numberOfPoints+1):
             s = "printbuffer(" + str(i) + ", " + str(i) + ", smua.nvbuffer1.sourcevalues,smua.nvbuffer1.readings); \n"
             self.port.write(s.encode('ascii'))
         
